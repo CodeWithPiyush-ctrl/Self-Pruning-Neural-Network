@@ -3,6 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class PrunableLinear(nn.Module):
+    """
+    Custom linear layer with learnable gates.
+    Each weight is multiplied by a gate (0–1) to enable pruning.
+    """
     def __init__(self, in_features, out_features):
         super().__init__()
         self.weight = nn.Parameter(torch.randn(out_features, in_features) * 0.01)
@@ -10,6 +14,8 @@ class PrunableLinear(nn.Module):
         self.gate_scores = nn.Parameter(torch.randn(out_features, in_features))
 
     def forward(self, x):
+        # Apply sigmoid to convert gate scores → [0,1]
+    # Sharper sigmoid used to encourage sparsity
         gates = torch.sigmoid(self.gate_scores.clamp(-10, 10) / 0.1)
         pruned_weights = self.weight * gates
         return F.linear(x, pruned_weights, self.bias)
