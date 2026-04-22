@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import config
 
 def sparsity_loss(model):
+    """
+    Computes L1-based sparsity loss over all gates.
+    Encourages gates to move toward zero → pruning.
+    """
     loss = 0
     count = 0
     for gates in model.get_all_gates():
@@ -12,6 +16,9 @@ def sparsity_loss(model):
 
 
 def calculate_sparsity(model):
+    """
+    Calculates percentage of gates below threshold (pruned weights).
+    """
     total = 0
     pruned = 0
 
