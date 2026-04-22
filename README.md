@@ -1,7 +1,6 @@
-================================================================================
+
          SELF-PRUNING NEURAL NETWORK
          Dynamic Connection Pruning via Learnable Gates & L1 Regularization
-================================================================================
 
 REPOSITORY   : CodeWithPiyush-ctrl/Self-Pruning-Neural-Network
 LANGUAGE     : Python 3
